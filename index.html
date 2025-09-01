@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>
+   4 Tabs
+  </title>
+  <style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+.tabs {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+}
+.tab__list {
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+.tab__list > div {
+    padding: 10px 20px;
+    border-radius: 4px 4px 0 0;
+    transition: background-color 0.3s;
+}
+.tab__list > div:hover {
+    background-color: #f9f9f9;
+}
+.tab__content > div {
+    display: none;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+.is--active {
+    font-weight: bold;
+    display: block !important;
+    border-bottom: 2px solid #007BFF;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #0056b3;
+}
+  </style>
+ </head>
+ <body>
+  <div class="tabs">
+   <div class="tab__list">
+    <div class="tab-item">
+     Tab 1
+    </div>
+    <div class="tab-item">
+     Tab 2
+    </div>
+    <div class="tab-item">
+     Tab 3
+    </div>
+    <div class="tab-item">
+     Tab 4
+    </div>
+   </div>
+   <div class="tab__content">
+    <div class="tab-content-item">
+     Random 1
+    </div>
+    <div class="tab-content-item">
+     Random 2
+    </div>
+    <div class="tab-content-item">
+     Random 3
+    </div>
+    <div class="tab-content-item">
+     <table>
+      <tr>
+       <td>
+        <a href="https://www.youtube.com/watch?v=qz0aGYrrlhU">
+         qz0aGYrrlhU
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="https://www.youtube.com/watch?v=qz0aGYrrlhU">
+         qz0aGYrrlhU
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <a href="https://www.youtube.com/watch?v=qz0aGYrrlhU">
+         qz0aGYrrlhU
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+   <div class="button-container">
+    <button class="prev">
+     Prev
+    </button>
+    <button class="next">
+     Next
+    </button>
+   </div>
+  </div>
+  <script>
+   document.addEventListener("DOMContentLoaded", () => {
+    // Select the tab container
+    const tabsContainer = document.querySelector(".tabs");
+    function initializeTabs(tabsContainer) {
+     // Select tab headers and content
+     const tabList = tabsContainer.querySelector(".tab__list");
+     const tabItems = Array.from(tabList.children);
+     const tabContent = tabsContainer.querySelector(".tab__content");
+     const tabContentItems = Array.from(tabContent.children);
+     let activeIndex = 0;
+     // Set the active tab
+     function setActiveTab(index) {
+            tabItems.forEach(item => item.classList.remove("is--active"));
+            tabContentItems.forEach(content => content.classList.remove("is--active"));
+            tabItems[index].classList.add("is--active");
+            tabContentItems[index].classList.add("is--active");
+     }
+     // Add click event listeners to tab headers
+     tabItems.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                activeIndex = index;
+                setActiveTab(index);
+            });
+     });
+     // Add click event listeners to prev and next buttons
+     const prevButton = tabsContainer.querySelector(".prev");
+     const nextButton = tabsContainer.querySelector(".next");
+     prevButton.addEventListener("click", () => {
+            activeIndex = (activeIndex - 1 + tabItems.length) % tabItems.length;
+            setActiveTab(activeIndex);
+     });
+     nextButton.addEventListener("click", () => {
+            activeIndex = (activeIndex + 1) % tabItems.length;
+            setActiveTab(activeIndex);
+     });
+     // Set the initial active tab
+     setActiveTab(activeIndex);
+    }
+    // Initialize the tabs
+    initializeTabs(tabsContainer);
+   });
+  </script>
+ </body>
+</html>
